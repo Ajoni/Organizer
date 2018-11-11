@@ -9,8 +9,8 @@ namespace Organizer.Models
     public class Event
     {
         [Key] public int Id { get; set; }
-        public string Title { get; set; }
-        public DateTime StartDate { get; set; }
+        [Required] public string Title { get; set; }
+        [Required] public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
     }
 }

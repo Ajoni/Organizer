@@ -12,8 +12,13 @@ namespace Organizer.Models
         [Key] public int Id { get; set; }
         [ForeignKey("Owner")] public string OwnerId { get; set; }
         public ApplicationUser Owner { get; set; }
-        public string Title { get; set; }
+        [Required] public string Title { get; set; }
         public string Tags { get; set; }
+
+        // Use GroupEvent?
         public virtual ICollection<Event> Events { get; set; }
+
+        public ICollection<ApplicationUser> Administrators { get; set; }
+
     }
 }
