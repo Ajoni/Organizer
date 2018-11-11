@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace Organizer.Models
+namespace Organizer.ViewModels
 {
 
     public class SendCodeViewModel
