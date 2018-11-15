@@ -223,6 +223,10 @@
     <Compile Include="Migrations\201811111348306_init3.Designer.cs">
       <DependentUpon>201811111348306_init3.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811141526218_init4.cs" />
+    <Compile Include="Migrations\201811141526218_init4.Designer.cs">
+      <DependentUpon>201811141526218_init4.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GroupEvent.cs" />
     <Compile Include="Models\UserEvent.cs" />
@@ -313,6 +317,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811111348306_init3.resx">
       <DependentUpon>201811111348306_init3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811141526218_init4.resx">
+      <DependentUpon>201811141526218_init4.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
