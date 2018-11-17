@@ -18,7 +18,7 @@ namespace Organizer.Models
         // Use GroupEvent?
         public virtual ICollection<Event> Events { get; set; }
 
-        public ICollection<ApplicationUser> Administrators { get; set; }
+        public virtual ICollection<ApplicationUser> Administrators { get; set; }
 
     }
 }

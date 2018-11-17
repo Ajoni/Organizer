@@ -17,11 +17,11 @@ namespace Organizer.Models
 
         // Use UserEvents?
         public virtual ICollection<Event> Events { get; set; }
-        public ICollection<Note> Notes { get; set; }
-        public ICollection<TODOItem> TODOItems { get; set; }
+        public virtual ICollection<Note> Notes { get; set; }
+        public virtual ICollection<TODOItem> TODOItems { get; set; }
 
-        public ICollection<ApplicationUser> UserObservations { get; set; }
-        public ICollection<Group> GroupObservations { get; set; }
+        public virtual ICollection<ApplicationUser> UserObservations { get; set; }
+        public virtual ICollection<Group> GroupObservations { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

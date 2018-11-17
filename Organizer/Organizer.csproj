@@ -228,6 +228,7 @@
       <DependentUpon>201811141526218_init4.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\GroupAdmin.cs" />
     <Compile Include="Models\GroupEvent.cs" />
     <Compile Include="Models\UserEvent.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
