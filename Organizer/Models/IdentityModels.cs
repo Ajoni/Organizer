@@ -14,14 +14,15 @@ namespace Organizer.Models
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Description { get; set; }
-
-        // Use UserEvents?
-        public virtual ICollection<Event> Events { get; set; }
+        
+        public virtual ICollection<UserEvent> Events { get; set; }
         public virtual ICollection<Note> Notes { get; set; }
         public virtual ICollection<TODOItem> TODOItems { get; set; }
 
         public virtual ICollection<ApplicationUser> UserObservations { get; set; }
+        public virtual ICollection<ApplicationUser> ObservingUsers { get; set; }
         public virtual ICollection<Group> GroupObservations { get; set; }
+        public virtual ICollection<Group> AdministratedGroups { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {

@@ -227,6 +227,18 @@
     <Compile Include="Migrations\201811141526218_init4.Designer.cs">
       <DependentUpon>201811141526218_init4.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811170924209_added_many_to_many.cs" />
+    <Compile Include="Migrations\201811170924209_added_many_to_many.Designer.cs">
+      <DependentUpon>201811170924209_added_many_to_many.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811170946442_fixed_many_to_many.cs" />
+    <Compile Include="Migrations\201811170946442_fixed_many_to_many.Designer.cs">
+      <DependentUpon>201811170946442_fixed_many_to_many.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201811171055422_added_user_user_observations.cs" />
+    <Compile Include="Migrations\201811171055422_added_user_user_observations.Designer.cs">
+      <DependentUpon>201811171055422_added_user_user_observations.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GroupAdmin.cs" />
     <Compile Include="Models\GroupEvent.cs" />
@@ -321,6 +333,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811141526218_init4.resx">
       <DependentUpon>201811141526218_init4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811170924209_added_many_to_many.resx">
+      <DependentUpon>201811170924209_added_many_to_many.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811170946442_fixed_many_to_many.resx">
+      <DependentUpon>201811170946442_fixed_many_to_many.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811171055422_added_user_user_observations.resx">
+      <DependentUpon>201811171055422_added_user_user_observations.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

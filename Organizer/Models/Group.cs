@@ -14,11 +14,12 @@ namespace Organizer.Models
         public ApplicationUser Owner { get; set; }
         [Required] public string Title { get; set; }
         public string Tags { get; set; }
-
-        // Use GroupEvent?
-        public virtual ICollection<Event> Events { get; set; }
+        
+        public virtual ICollection<GroupEvent> Events { get; set; }
 
         public virtual ICollection<ApplicationUser> Administrators { get; set; }
+
+        public virtual ICollection<ApplicationUser> Observers { get; set; }
 
     }
 }
