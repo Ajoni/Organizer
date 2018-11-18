@@ -7,13 +7,13 @@ namespace Organizer.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class added_user_user_observations : IMigrationMetadata
+    public sealed partial class init2 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(added_user_user_observations));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(init2));
         
         string IMigrationMetadata.Id
         {
-            get { return "201811171055422_added_user_user_observations"; }
+            get { return "201811171529218_init2"; }
         }
         
         string IMigrationMetadata.Source

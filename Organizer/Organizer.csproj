@@ -205,39 +205,23 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NoteController.cs" />
+    <Compile Include="Controllers\TODOItemsController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811111244230_init.cs" />
-    <Compile Include="Migrations\201811111244230_init.Designer.cs">
-      <DependentUpon>201811111244230_init.cs</DependentUpon>
+    <Compile Include="Migrations\201811171330363_init.cs" />
+    <Compile Include="Migrations\201811171330363_init.Designer.cs">
+      <DependentUpon>201811171330363_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201811111306276_init2.cs" />
-    <Compile Include="Migrations\201811111306276_init2.Designer.cs">
-      <DependentUpon>201811111306276_init2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811111348306_init3.cs" />
-    <Compile Include="Migrations\201811111348306_init3.Designer.cs">
-      <DependentUpon>201811111348306_init3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811141526218_init4.cs" />
-    <Compile Include="Migrations\201811141526218_init4.Designer.cs">
-      <DependentUpon>201811141526218_init4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811170924209_added_many_to_many.cs" />
-    <Compile Include="Migrations\201811170924209_added_many_to_many.Designer.cs">
-      <DependentUpon>201811170924209_added_many_to_many.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811170946442_fixed_many_to_many.cs" />
-    <Compile Include="Migrations\201811170946442_fixed_many_to_many.Designer.cs">
-      <DependentUpon>201811170946442_fixed_many_to_many.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201811171055422_added_user_user_observations.cs" />
-    <Compile Include="Migrations\201811171055422_added_user_user_observations.Designer.cs">
-      <DependentUpon>201811171055422_added_user_user_observations.cs</DependentUpon>
+    <Compile Include="Migrations\201811171529218_init2.cs" />
+    <Compile Include="Migrations\201811171529218_init2.Designer.cs">
+      <DependentUpon>201811171529218_init2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GroupAdmin.cs" />
@@ -304,6 +288,26 @@
     <Content Include="Views\Manage\SetPassword.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\User\Delete.cshtml" />
+    <Content Include="Views\User\Details.cshtml" />
+    <Content Include="Views\User\Edit.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Groups\Create.cshtml" />
+    <Content Include="Views\Groups\Delete.cshtml" />
+    <Content Include="Views\Groups\Details.cshtml" />
+    <Content Include="Views\Groups\Edit.cshtml" />
+    <Content Include="Views\Groups\Index.cshtml" />
+    <Content Include="Views\TODOItems\Create.cshtml" />
+    <Content Include="Views\TODOItems\Delete.cshtml" />
+    <Content Include="Views\TODOItems\Details.cshtml" />
+    <Content Include="Views\TODOItems\Edit.cshtml" />
+    <Content Include="Views\TODOItems\Index.cshtml" />
+    <Content Include="Views\Note\Create.cshtml" />
+    <Content Include="Views\Note\Delete.cshtml" />
+    <Content Include="Views\Note\Details.cshtml" />
+    <Content Include="Views\Note\Edit.cshtml" />
+    <Content Include="Views\Note\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -322,26 +326,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201811111244230_init.resx">
-      <DependentUpon>201811111244230_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811171330363_init.resx">
+      <DependentUpon>201811171330363_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811111306276_init2.resx">
-      <DependentUpon>201811111306276_init2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811111348306_init3.resx">
-      <DependentUpon>201811111348306_init3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811141526218_init4.resx">
-      <DependentUpon>201811141526218_init4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811170924209_added_many_to_many.resx">
-      <DependentUpon>201811170924209_added_many_to_many.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811170946442_fixed_many_to_many.resx">
-      <DependentUpon>201811170946442_fixed_many_to_many.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201811171055422_added_user_user_observations.resx">
-      <DependentUpon>201811171055422_added_user_user_observations.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201811171529218_init2.resx">
+      <DependentUpon>201811171529218_init2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
