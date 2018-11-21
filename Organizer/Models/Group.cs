@@ -21,5 +21,7 @@ namespace Organizer.Models
 
         public virtual ICollection<ApplicationUser> Observers { get; set; }
 
+        public virtual ICollection<Post> Posts { get; set; }
+
     }
 }
