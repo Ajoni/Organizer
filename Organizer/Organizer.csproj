@@ -223,8 +223,13 @@
     <Compile Include="Migrations\201811171529218_init2.Designer.cs">
       <DependentUpon>201811171529218_init2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201811211503599_posts.cs" />
+    <Compile Include="Migrations\201811211503599_posts.Designer.cs">
+      <DependentUpon>201811211503599_posts.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\GroupEvent.cs" />
+    <Compile Include="Models\Post.cs" />
     <Compile Include="Models\UserEvent.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\Event.cs" />
@@ -330,6 +335,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811171529218_init2.resx">
       <DependentUpon>201811171529218_init2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201811211503599_posts.resx">
+      <DependentUpon>201811211503599_posts.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -10,6 +10,7 @@ namespace Organizer.Models
 {
     public class Post
     {
+        [Key] public int Id { get; set; }
         [Required] public string content { get; set; }
 
     }
