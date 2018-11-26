@@ -11,18 +11,18 @@ using Organizer.Models;
 
 namespace Organizer.Controllers
 {
+    [Authorize]
     public class TODOItemsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private UnitOfWork unit= new UnitOfWork();
 
-        // GET: TODOItems
         public ActionResult Index()
         {
             var tODOItems = db.TODOItems.Include(t => t.User);
             return View(tODOItems.ToList());
         }
 
-        // GET: TODOItems/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,7 +37,6 @@ namespace Organizer.Controllers
             return View(tODOItem);
         }
 
-        // GET: TODOItems/Create
         public ActionResult Create()
         {
             ViewBag.UserId = new SelectList(db.Users, "Id", "Name");

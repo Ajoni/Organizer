@@ -44,9 +44,5 @@ namespace Organizer.Data
             return query;
         }
 
-        public void Save()
-        {
-            _entities.SaveChanges();
-        }
     }
 }
