@@ -212,6 +212,14 @@
     <Compile Include="Controllers\TODOItemsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\ApplicationDbContext.cs" />
+    <Compile Include="Data\GenericRepo.cs" />
+    <Compile Include="Data\GroupsRepo.cs" />
+    <Compile Include="Data\IGenericRepo.cs" />
+    <Compile Include="Data\IGroupEventsRepo.cs" />
+    <Compile Include="Data\IGroupsRepo.cs" />
+    <Compile Include="Data\INotesRepo.cs" />
+    <Compile Include="Data\ITODOItemsRepo.cs" />
+    <Compile Include="Data\IUserEventsRepo.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
