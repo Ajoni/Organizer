@@ -16,6 +16,7 @@ namespace Organizer.Controllers
     public class TODOItemsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+        private UnitOfWork unit= new UnitOfWork();
 
         public ActionResult Index()
         {
