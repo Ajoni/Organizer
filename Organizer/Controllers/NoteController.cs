@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Organizer.Data;
 using Organizer.Models;
 
@@ -15,14 +16,22 @@ namespace Organizer.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: Note
         public ActionResult Index()
         {
-            var notes = db.Notes.Include(n => n.User);
+            var userId = User.Identity.GetUserId();
+            var notes = db.Notes.Include(n => n.User).Where(x => x.UserId == userId);
             return View(notes.ToList());
         }
 
-        // GET: Note/Details/5
+        public ActionResult ObservedUsersNotes()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Where(u => u.Id == userId);
+            throw new NotImplementedException();
+            var notes = db.Notes.Include(n => n.User).Where(x => x.UserId == userId);
+            return View(notes.ToList());
+        }
+
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,32 +46,27 @@ namespace Organizer.Controllers
             return View(note);
         }
 
-        // GET: Note/Create
         public ActionResult Create()
         {
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name");
             return View();
         }
 
-        // POST: Note/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Nr,UserId,Content,Visibility")] Note note)
+        public ActionResult Create([Bind(Include = "Nr,Content,Visibility")] Note note)
         {
             if (ModelState.IsValid)
             {
+                var userId = User.Identity.GetUserId();
+                note.UserId = userId;
                 db.Notes.Add(note);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", note.UserId);
             return View(note);
         }
 
-        // GET: Note/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,16 +78,12 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", note.UserId);
             return View(note);
         }
 
-        // POST: Note/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Nr,UserId,Content,Visibility")] Note note)
+        public ActionResult Edit([Bind(Include = "Nr,Content,Visibility")] Note note)
         {
             if (ModelState.IsValid)
             {
@@ -95,7 +95,6 @@ namespace Organizer.Controllers
             return View(note);
         }
 
-        // GET: Note/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,7 +109,6 @@ namespace Organizer.Controllers
             return View(note);
         }
 
-        // POST: Note/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
