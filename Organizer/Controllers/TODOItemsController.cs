@@ -6,23 +6,24 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Organizer.Data;
 using Organizer.Models;
 
 namespace Organizer.Controllers
 {
+    [Authorize]
     public class TODOItemsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: TODOItems
         public ActionResult Index()
         {
-            var tODOItems = db.TODOItems.Include(t => t.User);
+            var userId = User.Identity.GetUserId();
+            var tODOItems = db.TODOItems.Include(t => t.User).Where(x => x.UserId == userId);
             return View(tODOItems.ToList());
         }
 
-        // GET: TODOItems/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,32 +38,27 @@ namespace Organizer.Controllers
             return View(tODOItem);
         }
 
-        // GET: TODOItems/Create
         public ActionResult Create()
         {
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name");
-            return View();
+            return View(new TODOItem { StartDate = DateTime.Now });
         }
 
-        // POST: TODOItems/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,UserId,Title,Description,StartDate,EndDate")] TODOItem tODOItem)
+        public ActionResult Create([Bind(Include = "Id,Title,Description,StartDate,EndDate")] TODOItem tODOItem)
         {
             if (ModelState.IsValid)
             {
+                var userId = User.Identity.GetUserId();
+                tODOItem.UserId = userId;
                 db.TODOItems.Add(tODOItem);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", tODOItem.UserId);
             return View(tODOItem);
         }
 
-        // GET: TODOItems/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -74,16 +70,12 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", tODOItem.UserId);
             return View(tODOItem);
         }
 
-        // POST: TODOItems/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,UserId,Title,Description,StartDate,EndDate")] TODOItem tODOItem)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,StartDate,EndDate")] TODOItem tODOItem)
         {
             if (ModelState.IsValid)
             {
@@ -91,11 +83,9 @@ namespace Organizer.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.UserId = new SelectList(db.Users, "Id", "Name", tODOItem.UserId);
             return View(tODOItem);
         }
 
-        // GET: TODOItems/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,7 +100,6 @@ namespace Organizer.Controllers
             return View(tODOItem);
         }
 
-        // POST: TODOItems/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
