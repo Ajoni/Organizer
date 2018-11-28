@@ -205,6 +205,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\GroupEventsController.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -312,6 +313,12 @@
     <Content Include="Views\Note\Details.cshtml" />
     <Content Include="Views\Note\Edit.cshtml" />
     <Content Include="Views\Note\Index.cshtml" />
+    <Content Include="Views\GroupEvents\Create.cshtml" />
+    <Content Include="Views\GroupEvents\Delete.cshtml" />
+    <Content Include="Views\GroupEvents\Details.cshtml" />
+    <Content Include="Views\GroupEvents\Edit.cshtml" />
+    <Content Include="Views\GroupEvents\Index.cshtml" />
+    <Content Include="Views\Groups\GroupEvents.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
