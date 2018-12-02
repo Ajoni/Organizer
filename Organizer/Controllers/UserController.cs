@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using Organizer.Data;
 using Organizer.Models;
 
@@ -15,13 +16,97 @@ namespace Organizer.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        // GET: User
+        public ActionResult ObservingUsers()
+        {
+            var userId = User.Identity.GetUserId();
+            #region errors
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            #endregion
+            var user = db.Users.Find(userId);
+            return View(user.ObservingUsers);
+        }
+
+        public ActionResult UserObservations()
+        {
+            var userId = User.Identity.GetUserId();
+            #region errors
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            #endregion
+            var user = db.Users.Find(userId);
+            return View(user.UserObservations);
+        }
+
+        public ActionResult Observe(string id)
+        {
+            var userId = User.Identity.GetUserId();
+            #region errors
+            if (String.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            #endregion
+            var userToObserve = db.Users.Find(id);
+            var user = db.Users.Find(userId);
+            #region errors
+            if (userToObserve == null)
+            {
+                return HttpNotFound();
+            }
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            #endregion
+            user.UserObservations.Add(userToObserve);
+            db.SaveChanges();
+            return RedirectToAction("UserObservations");
+        }
+
+        public ActionResult DeleteObservation(string id)
+        {
+            var userId = User.Identity.GetUserId();
+            #region errors
+            if (String.IsNullOrEmpty(id))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            #endregion
+            var userToObserve = db.Users.Find(id);
+            var user = db.Users.Find(userId);
+            #region errors
+            if (userToObserve == null)
+            {
+                return HttpNotFound();
+            }
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            #endregion
+            user.UserObservations.Remove(userToObserve);
+            db.SaveChanges();
+            return RedirectToAction("UserObservations");
+        }
+        #region auto gen CRUD
         public ActionResult Index()
         {
             return View(db.Users.ToList());
         }
 
-        // GET: User/Details/5
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -36,15 +121,11 @@ namespace Organizer.Controllers
             return View(applicationUser);
         }
 
-        // GET: User/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: User/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,Name,Surname,Description,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
@@ -59,7 +140,6 @@ namespace Organizer.Controllers
             return View(applicationUser);
         }
 
-        // GET: User/Edit/5
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -74,9 +154,6 @@ namespace Organizer.Controllers
             return View(applicationUser);
         }
 
-        // POST: User/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Surname,Description,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
@@ -90,7 +167,6 @@ namespace Organizer.Controllers
             return View(applicationUser);
         }
 
-        // GET: User/Delete/5
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -105,7 +181,6 @@ namespace Organizer.Controllers
             return View(applicationUser);
         }
 
-        // POST: User/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
@@ -115,6 +190,7 @@ namespace Organizer.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
+        #endregion
 
         protected override void Dispose(bool disposing)
         {

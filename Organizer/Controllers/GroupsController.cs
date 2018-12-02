@@ -78,7 +78,7 @@ namespace Organizer.Controllers
             return View(group.Observers);
         }
 
-        public ActionResult ObserveGroup(int? id)
+        public ActionResult Observe(int? id)
         {
             var userId = User.Identity.GetUserId();
             #region errors
@@ -106,6 +106,33 @@ namespace Organizer.Controllers
             
             return View(group.Observers);
         }
+
+        public ActionResult AdministratedGroups()
+        {
+            var userId = User.Identity.GetUserId();
+            #region errors
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            #endregion
+            var user = db.Users.Find(userId);
+            return View(user.AdministratedGroups);
+        }
+
+        public ActionResult GroupObservations()
+        {
+            var userId = User.Identity.GetUserId();
+            #region errors
+            if (userId == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            #endregion
+            var user = db.Users.Find(userId);
+            return View(user.GroupObservations);
+        }
+
         public ActionResult Create()
         {
             return View();
@@ -119,7 +146,8 @@ namespace Organizer.Controllers
             {
                 var userId = User.Identity.GetUserId();
                 group.OwnerId = userId;
-                db.Groups.Add(group);
+                var user = db.Users.Find(userId);
+                user.AdministratedGroups.Add(group);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
