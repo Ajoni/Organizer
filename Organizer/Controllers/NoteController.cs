@@ -26,10 +26,20 @@ namespace Organizer.Controllers
         public ActionResult ObservedUsersNotes()
         {
             var userId = User.Identity.GetUserId();
-            var user = db.Users.Where(u => u.Id == userId);
-            throw new NotImplementedException();
-            var notes = db.Notes.Include(n => n.User).Where(x => x.UserId == userId);
-            return View(notes.ToList());
+            //var users = db.Users.Where(u => u.Id == userId)
+            //    .Include("UserObservations.Notes")
+            //    .SelectMany(x => x.UserObservations)
+            //    .ToList();
+            //foreach(var user in users)
+            //{
+            //    user.Notes = user.Notes.Where(x => x.Visibility).ToList();
+            //}
+            var notes = db.Users.Where(u => u.Id == userId)
+                .Include("UserObservations.Notes")
+                .SelectMany(x => x.UserObservations)
+                .SelectMany(x => x.Notes)
+                .Where(x => x.Visibility).ToList();
+            return View(notes);
         }
 
         public ActionResult Details(int? id)
