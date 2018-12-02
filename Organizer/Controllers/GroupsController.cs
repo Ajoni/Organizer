@@ -107,6 +107,8 @@ namespace Organizer.Controllers
             return View(group.Observers);
         }
 
+
+        //move to user controller?
         public ActionResult AdministratedGroups()
         {
             var userId = User.Identity.GetUserId();
@@ -132,6 +134,9 @@ namespace Organizer.Controllers
             var user = db.Users.Find(userId);
             return View(user.GroupObservations);
         }
+        //
+
+
 
         public ActionResult Create()
         {

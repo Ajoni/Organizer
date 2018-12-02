@@ -319,6 +319,8 @@
     <Content Include="Views\Groups\GroupEvents.cshtml" />
     <Content Include="Views\User\ObservingUsers.cshtml" />
     <Content Include="Views\User\UserObservations.cshtml" />
+    <Content Include="Views\Groups\ListAdmins.cshtml" />
+    <Content Include="Views\Groups\ListObservers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
