@@ -11,6 +11,7 @@ using Organizer.Models;
 
 namespace Organizer.Controllers
 {
+    [Authorize]
     public class GroupEventsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

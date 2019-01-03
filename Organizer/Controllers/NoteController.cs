@@ -12,6 +12,7 @@ using Organizer.Models;
 
 namespace Organizer.Controllers
 {
+    [Authorize]
     public class NoteController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

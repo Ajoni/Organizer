@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace Organizer.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
