@@ -49,7 +49,7 @@ namespace Organizer.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Note note = db.Notes.Find(id);
+            Note note = db.Notes.Include(n => n.User).FirstOrDefault(n => n.Nr == id);
             if (note == null)
             {
                 return HttpNotFound();

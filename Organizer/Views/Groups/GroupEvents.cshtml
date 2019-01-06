@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Organizer.Models.GroupEvent>
+﻿@model Organizer.ViewModels.GroupEventsViewModel
 
 @{
     ViewBag.Title = "GroupEvents";
@@ -7,39 +7,38 @@
 <h2>GroupEvents</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create new Event", "CreateEvent", new { id = Model.GroupId })
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.StartDate)
+            Start date
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EndDate)
+            End date
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.StartDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EndDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model.GroupEvents)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.ActionLink("Delete event", "DeleteEvent", new { id = item.Id, groupId = Model.GroupId })
+            </td>
+        </tr>
+    }
 
 </table>

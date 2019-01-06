@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Organizer.Data;
 using Organizer.Models;
+using Organizer.ViewModels;
 
 namespace Organizer.Controllers
 {
@@ -70,7 +71,7 @@ namespace Organizer.Controllers
             #endregion
             user.UserObservations.Add(userToObserve);
             db.SaveChanges();
-            return RedirectToAction("UserObservations");
+            return RedirectToAction("Users");
         }
 
         public ActionResult DeleteObservation(string id)
@@ -100,8 +101,9 @@ namespace Organizer.Controllers
             #endregion
             user.UserObservations.Remove(userToObserve);
             db.SaveChanges();
-            return RedirectToAction("UserObservations");
+            return RedirectToAction("Users");
         }
+
         #region auto gen CRUD
         public ActionResult Index()
         {
@@ -192,6 +194,25 @@ namespace Organizer.Controllers
             return RedirectToAction("Index");
         }
         #endregion
+
+        public ActionResult Users()
+        {
+            var userId = User.Identity.GetUserId();
+            var user = db.Users.Include(u => u.ObservingUsers).Include(u => u.UserObservations).FirstOrDefault(u => u.Id == userId);
+            return View(user);
+        }
+
+        public ActionResult Find()
+        {
+            return View(new UsersFindViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult Find(UsersFindViewModel model)
+        {
+            model.Users = db.Users.Where(u => u.Email.Contains(model.Query)).ToList();
+            return View(model);
+        }
 
         protected override void Dispose(bool disposing)
         {

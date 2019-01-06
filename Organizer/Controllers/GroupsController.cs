@@ -7,8 +7,10 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Organizer.Data;
 using Organizer.Models;
+using Organizer.ViewModels;
 
 namespace Organizer.Controllers
 {
@@ -19,8 +21,16 @@ namespace Organizer.Controllers
 
         public ActionResult Index()
         {
-            var groups = db.Groups.Include(g => g.Owner);
-            return View(groups.ToList());
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+
+            var model = new GroupsIndexViewModel()
+            {
+                OwnGroups = db.Groups.Include(g => g.Owner).Where(g => g.Owner.Id == user.Id).ToList(),
+                AdministeredGroups = user.AdministratedGroups.ToList(),
+                ObservedGroups = user.GroupObservations.ToList()
+            };
+            return View(model);
         }
 
         public ActionResult GroupEvents(int? id)
@@ -34,7 +44,12 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
-            return View(group.Events);
+            var model = new GroupEventsViewModel()
+            {
+                GroupId = id,
+                GroupEvents = group.Events
+            };
+            return View(model);
         }
 
         public ActionResult Details(int? id)
@@ -94,6 +109,8 @@ namespace Organizer.Controllers
             #endregion
             Group group = db.Groups.Include("Observers").Where(g => g.Id == id).FirstOrDefault();
             var user = db.Users.Find(userId);
+            group.Observers.Add(user);
+            db.SaveChanges();
             #region errors
             if (group == null)
             {
@@ -104,8 +121,8 @@ namespace Organizer.Controllers
                 return HttpNotFound();
             }
             #endregion
-            
-            return View(group.Observers);
+
+            return RedirectToAction("Index");
         }
 
 
@@ -164,7 +181,7 @@ namespace Organizer.Controllers
 
         public ActionResult CreateEvent(int? id)
         {
-            return View();
+            return View(new GroupEvent());
         }
 
         [HttpPost]
@@ -185,10 +202,30 @@ namespace Organizer.Controllers
                 var userId = User.Identity.GetUserId();
                 group.Events.Add(groupEvent);
                 db.SaveChanges();
-                return RedirectToAction("GroupEvents", id);
+                return RedirectToAction("GroupEvents", new { id = id });
             }
 
             return View(groupEvent);
+        }
+
+        public ActionResult DeleteEvent(int? id, int? groupId)
+        {
+            if (ModelState.IsValid)
+            {
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                GroupEvent Event = db.GroupEvents.Find(id);
+                if (Event == null)
+                {
+                    return HttpNotFound();
+                }
+                db.GroupEvents.Remove(Event);
+                db.SaveChanges();
+                return RedirectToAction("GroupEvents", new { id = groupId });
+            }
+            return RedirectToAction("GroupEvents", new { id = groupId });
         }
 
         public ActionResult Edit(int? id)
@@ -240,6 +277,18 @@ namespace Organizer.Controllers
             db.Groups.Remove(group);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult Search()
+        {
+            return View(new GroupsSearchViewModel());
+        }
+
+        [HttpPost]
+        public ActionResult Search(GroupsSearchViewModel viewModel)
+        {
+            viewModel.Groups = db.Groups.Where(g => g.Tags.Contains(viewModel.Query) || g.Title.Contains(viewModel.Query)).ToList();
+            return View(viewModel);
         }
 
         protected override void Dispose(bool disposing)
