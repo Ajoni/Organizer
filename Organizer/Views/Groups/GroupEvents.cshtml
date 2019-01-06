@@ -6,9 +6,12 @@
 
 <h2>GroupEvents</h2>
 
-<p>
-    @Html.ActionLink("Create new Event", "CreateEvent", new { id = Model.GroupId })
-</p>
+@if (Model.UserIsAdmin)
+{
+    <p>
+        @Html.ActionLink("Create new Event", "CreateEvent", new { id = Model.GroupId })
+    </p>
+}
 <table class="table">
     <tr>
         <th>
@@ -36,7 +39,10 @@
                 @Html.DisplayFor(modelItem => item.EndDate)
             </td>
             <td>
-                @Html.ActionLink("Delete event", "DeleteEvent", new { id = item.Id, groupId = Model.GroupId })
+                @if (Model.UserIsAdmin)
+                {
+                    @Html.ActionLink("Delete event", "DeleteEvent", new { id = item.Id, groupId = Model.GroupId })
+                }
             </td>
         </tr>
     }

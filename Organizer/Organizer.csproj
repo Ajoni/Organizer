@@ -206,6 +206,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GroupEventsController.cs" />
+    <Compile Include="Controllers\UserEventsController.cs" />
     <Compile Include="ViewModels\GroupEventsViewModel.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -334,6 +335,11 @@
     <Content Include="Views\User\Users.cshtml" />
     <Content Include="Views\User\Find.cshtml" />
     <Content Include="Views\Groups\CreateEvent.cshtml" />
+    <Content Include="Views\UserEvents\Create.cshtml" />
+    <Content Include="Views\UserEvents\Delete.cshtml" />
+    <Content Include="Views\UserEvents\Details.cshtml" />
+    <Content Include="Views\UserEvents\Edit.cshtml" />
+    <Content Include="Views\UserEvents\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

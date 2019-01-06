@@ -44,10 +44,13 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
             var model = new GroupEventsViewModel()
             {
                 GroupId = id,
-                GroupEvents = group.Events
+                GroupEvents = group.Events,
+                UserIsAdmin = group.Administrators.Contains(user)
             };
             return View(model);
         }

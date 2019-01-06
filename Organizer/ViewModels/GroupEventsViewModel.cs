@@ -11,5 +11,6 @@ namespace Organizer.ViewModels
 
         public int? GroupId { get; set; }
         public ICollection<GroupEvent> GroupEvents { get; set; }
+        public bool UserIsAdmin { get; set; }
     }
 }
