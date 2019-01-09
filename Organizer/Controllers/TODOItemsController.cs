@@ -31,6 +31,8 @@ namespace Organizer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TODOItem tODOItem = db.TODOItems.Find(id);
+            if (tODOItem.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (tODOItem == null)
             {
                 return HttpNotFound();
@@ -66,6 +68,8 @@ namespace Organizer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TODOItem tODOItem = db.TODOItems.Find(id);
+            if (tODOItem.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (tODOItem == null)
             {
                 return HttpNotFound();
@@ -77,6 +81,8 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Description,StartDate,EndDate")] TODOItem tODOItem)
         {
+            if (tODOItem.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(tODOItem).State = EntityState.Modified;
@@ -93,6 +99,8 @@ namespace Organizer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TODOItem tODOItem = db.TODOItems.Find(id);
+            if (tODOItem.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (tODOItem == null)
             {
                 return HttpNotFound();
@@ -105,6 +113,8 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TODOItem tODOItem = db.TODOItems.Find(id);
+            if (tODOItem.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.TODOItems.Remove(tODOItem);
             db.SaveChanges();
             return RedirectToAction("Index");
