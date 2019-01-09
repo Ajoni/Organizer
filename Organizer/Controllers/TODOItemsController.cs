@@ -31,12 +31,12 @@ namespace Organizer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TODOItem tODOItem = db.TODOItems.Find(id);
-            if (tODOItem.UserId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (tODOItem == null)
             {
                 return HttpNotFound();
             }
+            if (tODOItem.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(tODOItem);
         }
 
@@ -68,12 +68,12 @@ namespace Organizer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TODOItem tODOItem = db.TODOItems.Find(id);
-            if (tODOItem.UserId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (tODOItem == null)
             {
                 return HttpNotFound();
             }
+            if (tODOItem.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(tODOItem);
         }
 
@@ -99,12 +99,12 @@ namespace Organizer.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             TODOItem tODOItem = db.TODOItems.Find(id);
-            if (tODOItem.UserId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (tODOItem == null)
             {
                 return HttpNotFound();
             }
+            if (tODOItem.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(tODOItem);
         }
 

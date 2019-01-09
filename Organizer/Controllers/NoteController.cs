@@ -27,14 +27,6 @@ namespace Organizer.Controllers
         public ActionResult ObservedUsersNotes()
         {
             var userId = User.Identity.GetUserId();
-            //var users = db.Users.Where(u => u.Id == userId)
-            //    .Include("UserObservations.Notes")
-            //    .SelectMany(x => x.UserObservations)
-            //    .ToList();
-            //foreach(var user in users)
-            //{
-            //    user.Notes = user.Notes.Where(x => x.Visibility).ToList();
-            //}
             var notes = db.Users.Where(u => u.Id == userId)
                 .Include("UserObservations.Notes")
                 .SelectMany(x => x.UserObservations)
@@ -54,6 +46,9 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if(note.UserId != User.Identity.GetUserId())
+                if (!note.Visibility)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(note);
         }
 
@@ -89,6 +84,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (note.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(note);
         }
 
@@ -96,6 +93,8 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Nr,Content,Visibility")] Note note)
         {
+            if (note.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(note).State = EntityState.Modified;
@@ -117,6 +116,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (note.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(note);
         }
 
@@ -125,6 +126,8 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Note note = db.Notes.Find(id);
+            if (note.UserId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.Notes.Remove(note);
             db.SaveChanges();
             return RedirectToAction("Index");

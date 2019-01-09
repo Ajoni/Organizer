@@ -224,6 +224,8 @@ namespace Organizer.Controllers
                 {
                     return HttpNotFound();
                 }
+                if (isOwner(Event))
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
                 db.GroupEvents.Remove(Event);
                 db.SaveChanges();
                 return RedirectToAction("GroupEvents", new { id = groupId });
@@ -242,6 +244,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (group.OwnerId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(group);
         }
 
@@ -249,6 +253,8 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Tags")] Group group)
         {
+            if (group.OwnerId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(group).State = EntityState.Modified;
@@ -269,6 +275,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (group.OwnerId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(group);
         }
 
@@ -277,6 +285,8 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Group group = db.Groups.Find(id);
+            if (group.OwnerId != User.Identity.GetUserId())
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.Groups.Remove(group);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -292,6 +302,14 @@ namespace Organizer.Controllers
         {
             viewModel.Groups = db.Groups.Where(g => g.Tags.Contains(viewModel.Query) || g.Title.Contains(viewModel.Query)).ToList();
             return View(viewModel);
+        }
+
+        private bool isOwner(GroupEvent groupEvent)
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            var e = db.UserEvents.Find(groupEvent.Id);
+            return e != null;
         }
 
         protected override void Dispose(bool disposing)

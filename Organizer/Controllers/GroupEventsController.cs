@@ -6,6 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Organizer.Data;
 using Organizer.Models;
 
@@ -34,6 +36,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (isOwner(groupEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(groupEvent);
         }
 
@@ -72,6 +76,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (isOwner(groupEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(groupEvent);
         }
 
@@ -82,6 +88,8 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,StartDate,EndDate")] GroupEvent groupEvent)
         {
+            if (isOwner(groupEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(groupEvent).State = EntityState.Modified;
@@ -103,6 +111,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (isOwner(groupEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(groupEvent);
         }
 
@@ -112,9 +122,19 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             GroupEvent groupEvent = db.GroupEvents.Find(id);
+            if (isOwner(groupEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.GroupEvents.Remove(groupEvent);
             db.SaveChanges();
             return RedirectToAction("Index");
+        } 
+
+        private bool isOwner(GroupEvent groupEvent)
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            var e = db.UserEvents.Find(groupEvent.Id);
+            return e != null;
         }
 
         protected override void Dispose(bool disposing)

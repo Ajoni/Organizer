@@ -37,6 +37,14 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (userEvent.Visibility)
+            {
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+                var e = db.UserEvents.Find(userEvent.Id);
+                if (e == null)
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest); 
+            }
             return View(userEvent);
         }
 
@@ -53,7 +61,10 @@ namespace Organizer.Controllers
         {
             if (ModelState.IsValid)
             {
+                var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+                ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
                 db.UserEvents.Add(userEvent);
+                user.Events.Add(userEvent);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -73,6 +84,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (!isOwner(userEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(userEvent);
         }
 
@@ -81,6 +94,8 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Visibility,Title,StartDate,EndDate")] UserEvent userEvent)
         {
+            if (!isOwner(userEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(userEvent).State = EntityState.Modified;
@@ -102,6 +117,8 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
+            if (!isOwner(userEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(userEvent);
         }
 
@@ -111,9 +128,19 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             UserEvent userEvent = db.UserEvents.Find(id);
+            if (!isOwner(userEvent))
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.UserEvents.Remove(userEvent);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private bool isOwner(UserEvent userEvent)
+        {
+            var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
+            var e = db.UserEvents.Find(userEvent.Id);
+            return e != null;
         }
 
         protected override void Dispose(bool disposing)
