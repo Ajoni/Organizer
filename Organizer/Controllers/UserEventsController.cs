@@ -92,10 +92,8 @@ namespace Organizer.Controllers
         // POST: UserEvents/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Visibility,Title,StartDate,EndDate")] UserEvent userEvent)
+        public ActionResult Edit([Bind(Include = "Id,Visibility,Title,StartDate,EndDate,UserId")] UserEvent userEvent)
         {
-            if (!isOwner(userEvent))
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(userEvent).State = EntityState.Modified;
@@ -128,8 +126,6 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             UserEvent userEvent = db.UserEvents.Find(id);
-            if (!isOwner(userEvent))
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.UserEvents.Remove(userEvent);
             db.SaveChanges();
             return RedirectToAction("Index");

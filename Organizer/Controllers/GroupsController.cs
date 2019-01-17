@@ -244,8 +244,6 @@ namespace Organizer.Controllers
             {
                 return HttpNotFound();
             }
-            if (group.OwnerId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             return View(group);
         }
 
@@ -253,8 +251,6 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,Tags")] Group group)
         {
-            if (group.OwnerId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(group).State = EntityState.Modified;
@@ -285,8 +281,6 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Group group = db.Groups.Find(id);
-            if (group.OwnerId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.Groups.Remove(group);
             db.SaveChanges();
             return RedirectToAction("Index");

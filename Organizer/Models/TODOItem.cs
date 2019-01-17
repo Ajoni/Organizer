@@ -15,10 +15,12 @@ namespace Organizer.Models
 
         [DisplayName("Start date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime StartDate { get; set; } = DateTime.Now;
 
         [DisplayName("End date")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MM-yyyy}", ApplyFormatInEditMode = true)]
         public DateTime EndDate { get; set; } = DateTime.Now;
     }
 }

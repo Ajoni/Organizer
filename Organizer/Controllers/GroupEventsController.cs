@@ -88,8 +88,6 @@ namespace Organizer.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Title,StartDate,EndDate")] GroupEvent groupEvent)
         {
-            if (isOwner(groupEvent))
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(groupEvent).State = EntityState.Modified;
@@ -122,8 +120,6 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             GroupEvent groupEvent = db.GroupEvents.Find(id);
-            if (isOwner(groupEvent))
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.GroupEvents.Remove(groupEvent);
             db.SaveChanges();
             return RedirectToAction("Index");

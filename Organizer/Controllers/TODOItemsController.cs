@@ -79,10 +79,8 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,Title,Description,StartDate,EndDate")] TODOItem tODOItem)
+        public ActionResult Edit([Bind(Include = "Id,Title,Description,StartDate,EndDate,UserId")] TODOItem tODOItem)
         {
-            if (tODOItem.UserId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(tODOItem).State = EntityState.Modified;
@@ -113,8 +111,6 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             TODOItem tODOItem = db.TODOItems.Find(id);
-            if (tODOItem.UserId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.TODOItems.Remove(tODOItem);
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -91,10 +91,8 @@ namespace Organizer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Nr,Content,Visibility")] Note note)
+        public ActionResult Edit([Bind(Include = "Id,Nr,Content,Visibility,UserId")] Note note)
         {
-            if (note.UserId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             if (ModelState.IsValid)
             {
                 db.Entry(note).State = EntityState.Modified;
@@ -126,8 +124,6 @@ namespace Organizer.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Note note = db.Notes.Find(id);
-            if (note.UserId != User.Identity.GetUserId())
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             db.Notes.Remove(note);
             db.SaveChanges();
             return RedirectToAction("Index");
