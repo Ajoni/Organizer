@@ -207,6 +207,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\GroupEventsController.cs" />
     <Compile Include="Controllers\UserEventsController.cs" />
+    <Compile Include="ViewModels\SummaryViewModel.cs" />
     <Compile Include="ViewModels\GroupEventsViewModel.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

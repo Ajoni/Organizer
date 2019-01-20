@@ -1,6 +1,118 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@model Organizer.ViewModels.SummaryViewModel
+@{
+  ViewBag.Title = "Home Page";
 }
 
-<h4>Welcome</h4>
-<div>Feel free to use the Organiser any way you see fit.</div>
+<h2>Coming events</h2>
+<table class="table">
+  <tr>
+    <th>
+      @Html.DisplayNameFor(model => model.UserEvents.SingleOrDefault().Visibility)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.UserEvents.SingleOrDefault().Title)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.UserEvents.SingleOrDefault().StartDate)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.UserEvents.SingleOrDefault().EndDate)
+    </th>
+    <th></th>
+  </tr>
+
+  @foreach (var item in Model.UserEvents)
+  {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.Visibility)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Title)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.StartDate)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.EndDate)
+      </td>
+      <td>
+        @Html.ActionLink("Edit", "Edit", "UserEvents", new { id = item.Id }, null) |
+        @Html.ActionLink("Details", "Details", "UserEvents", new { id = item.Id }, null) |
+        @Html.ActionLink("Delete", "Delete", "UserEvents", new { id = item.Id }, null)
+      </td>
+    </tr>
+  }
+</table>
+
+<h2>My notes</h2>
+<table class="table">
+  <tr>
+    <th>
+      @Html.DisplayNameFor(model => model.Notes.SingleOrDefault().Content)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.Notes.SingleOrDefault().Visibility)
+    </th>
+    <th></th>
+  </tr>
+
+  @foreach (var item in Model.Notes)
+  {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.Content)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Visibility)
+      </td>
+      <td>
+        @Html.ActionLink("Edit", "Edit", "Notes", new { id = item.Nr }, null) |
+        @Html.ActionLink("Details", "Details", "Notes", new { id = item.Nr }, null) |
+        @Html.ActionLink("Delete", "Delete", "Notes", new { id = item.Nr }, null)
+      </td>
+    </tr>
+  }
+</table>
+<h2>Things to do</h2>
+<table class="table">
+  <tr>
+    <th>
+      @Html.DisplayNameFor(model => model.TODOs.SingleOrDefault().Title)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.TODOs.SingleOrDefault().Description)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.TODOs.SingleOrDefault().StartDate)
+    </th>
+    <th>
+      @Html.DisplayNameFor(model => model.TODOs.SingleOrDefault().EndDate)
+    </th>
+    <th></th>
+  </tr>
+
+  @foreach (var item in Model.TODOs)
+  {
+    <tr>
+      <td>
+        @Html.DisplayFor(modelItem => item.Title)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.Description)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.StartDate)
+      </td>
+      <td>
+        @Html.DisplayFor(modelItem => item.EndDate)
+      </td>
+      <td>
+        @Html.ActionLink("Edit", "Edit", "TODOItems", new { id = item.Id }, null) |
+        @Html.ActionLink("Details", "Details", "TODOItems" , new { id = item.Id }, null) |
+        @Html.ActionLink("Delete", "Delete", "TODOItems" , new { id = item.Id }, null)
+      </td>
+    </tr>
+  }
+
+</table>
