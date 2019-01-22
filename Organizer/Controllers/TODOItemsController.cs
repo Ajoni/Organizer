@@ -54,6 +54,8 @@ namespace Organizer.Controllers
                 var userId = User.Identity.GetUserId();
                 tODOItem.UserId = userId;
                 db.TODOItems.Add(tODOItem);
+                var user = db.Users.Find(userId);
+                user.TodosTotal++;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -112,6 +114,11 @@ namespace Organizer.Controllers
         {
             TODOItem tODOItem = db.TODOItems.Find(id);
             db.TODOItems.Remove(tODOItem);
+            if(DateTime.Now < tODOItem.EndDate)
+            {
+                var user = db.Users.Find(User.Identity.GetUserId());
+                user.TodosDoneInTime++;
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }

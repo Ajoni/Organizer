@@ -11,12 +11,14 @@ namespace Organizer.ViewModels
         public List<Note> Notes { get; set; }
         public List<TODOItem> TODOs { get; set; }
         public List<UserEvent> UserEvents { get; set; }
+        public double Performance { get; set; }
 
-        public SummaryViewModel(List<Note> notes, List<TODOItem> tODOItems, List<UserEvent> userEvents)
+        public SummaryViewModel(List<Note> notes, List<TODOItem> tODOItems, List<UserEvent> userEvents, double perf)
         {
             Notes = notes;
             TODOs = tODOItems;
             UserEvents = userEvents;
+            Performance = perf;
         }
     }
 }

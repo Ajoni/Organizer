@@ -212,6 +212,14 @@
     <Compile Include="Migrations\201901221057070_added_files_model.Designer.cs">
       <DependentUpon>201901221057070_added_files_model.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201901221742048_preformance.cs" />
+    <Compile Include="Migrations\201901221742048_preformance.Designer.cs">
+      <DependentUpon>201901221742048_preformance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201901221816592_preformance5.cs" />
+    <Compile Include="Migrations\201901221816592_preformance5.Designer.cs">
+      <DependentUpon>201901221816592_preformance5.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\UserFile.cs" />
     <Compile Include="ViewModels\FilesIndexViewModel.cs" />
     <Compile Include="ViewModels\FilesUploadViewModel.cs" />
@@ -379,6 +387,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201901221057070_added_files_model.resx">
       <DependentUpon>201901221057070_added_files_model.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901221742048_preformance.resx">
+      <DependentUpon>201901221742048_preformance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901221816592_preformance5.resx">
+      <DependentUpon>201901221816592_preformance5.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
