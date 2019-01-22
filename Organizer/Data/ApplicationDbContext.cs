@@ -20,6 +20,7 @@ namespace Organizer.Data
         public DbSet<GroupEvent> GroupEvents { get; set; }
         public DbSet<Group> Groups { get; set; } 
         public DbSet<UserEvent> UserEvents { get; set; }
+        public DbSet<UserFile> UserFiles { get; set; }
 
         public static ApplicationDbContext Create()
         {

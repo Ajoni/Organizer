@@ -1,0 +1,27 @@
+﻿@model Organizer.ViewModels.FilesUploadViewModel
+@{
+    ViewBag.Title = "Upload";
+    string errorMessage = (string)ViewBag.Error;
+    if (errorMessage == null)
+    {
+        errorMessage = "";
+    }
+}
+
+<h2>Upload a file</h2>
+
+<p>Please keep the file size below 1 MB</p>
+
+<p class="text-danger">@errorMessage</p>
+
+@using (Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.LabelFor(x => x.File)
+        @Html.TextBoxFor(x => x.File, new { type = "file" })
+        @Html.ValidationMessageFor(x => x.File)
+    </div>
+
+    <button type="submit">Upload</button>
+}
+

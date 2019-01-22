@@ -205,8 +205,16 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\FilesController.cs" />
     <Compile Include="Controllers\GroupEventsController.cs" />
     <Compile Include="Controllers\UserEventsController.cs" />
+    <Compile Include="Migrations\201901221057070_added_files_model.cs" />
+    <Compile Include="Migrations\201901221057070_added_files_model.Designer.cs">
+      <DependentUpon>201901221057070_added_files_model.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\UserFile.cs" />
+    <Compile Include="ViewModels\FilesIndexViewModel.cs" />
+    <Compile Include="ViewModels\FilesUploadViewModel.cs" />
     <Compile Include="ViewModels\SummaryViewModel.cs" />
     <Compile Include="ViewModels\GroupEventsViewModel.cs" />
     <Compile Include="Controllers\GroupsController.cs" />
@@ -246,6 +254,7 @@
     <Compile Include="Models\TODOItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="ViewModels\UserFileIndexViewModel.cs" />
     <Compile Include="ViewModels\UsersFindViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -341,6 +350,8 @@
     <Content Include="Views\UserEvents\Details.cshtml" />
     <Content Include="Views\UserEvents\Edit.cshtml" />
     <Content Include="Views\UserEvents\Index.cshtml" />
+    <Content Include="Views\Files\Index.cshtml" />
+    <Content Include="Views\Files\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -365,6 +376,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201811211503599_posts.resx">
       <DependentUpon>201811211503599_posts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201901221057070_added_files_model.resx">
+      <DependentUpon>201901221057070_added_files_model.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -24,6 +24,8 @@ namespace Organizer.Models
         public virtual ICollection<Group> GroupObservations { get; set; }
         public virtual ICollection<Group> AdministratedGroups { get; set; }
 
+        public virtual ICollection<UserFile> Files { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
