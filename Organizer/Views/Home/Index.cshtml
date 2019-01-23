@@ -1,6 +1,6 @@
 ﻿@model Organizer.ViewModels.SummaryViewModel
 @{
-  ViewBag.Title = "Home Page";
+    ViewBag.Title = "Home Page";
 }
 
 <h2>Upcoming events</h2>
@@ -67,9 +67,9 @@
         @Html.DisplayFor(modelItem => item.Visibility)
       </td>
       <td>
-        @Html.ActionLink("Edit", "Edit", "Notes", new { id = item.Nr }, null) |
-        @Html.ActionLink("Details", "Details", "Notes", new { id = item.Nr }, null) |
-        @Html.ActionLink("Delete", "Delete", "Notes", new { id = item.Nr }, null)
+        @Html.ActionLink("Edit", "Edit", "Note", new { id = item.Nr }, null) |
+        @Html.ActionLink("Details", "Details", "Note", new { id = item.Nr }, null) |
+        @Html.ActionLink("Delete", "Delete", "Note", new { id = item.Nr }, null)
       </td>
     </tr>
   }
@@ -95,7 +95,7 @@
 
   @foreach (var item in Model.TODOs)
   {
-    <tr>
+    <tr style="background-color:@(item.EndDate < DateTime.Now ? "red" : "")">
       <td>
         @Html.DisplayFor(modelItem => item.Title)
       </td>
