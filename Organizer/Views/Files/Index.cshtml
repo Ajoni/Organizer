@@ -10,24 +10,27 @@
 
 <p>@Html.ActionLink("Upload new", "Upload")</p>
 
-<!-- Use a partial here? -->
-<table class="table">
+<div style="background-color: ghostwhite">
+  <table class="table">
     <thead>
-        <tr>
-            <th>Name</th>
-            <th>Size</th>
-            <th></th>
-        </tr>
+      <tr>
+        <th>Name</th>
+        <th>Size</th>
+        <th></th>
+      </tr>
     </thead>
     <tbody>
-        @foreach(UserFileIndexViewModel file in Model.Files)
-        {
-            <tr>
-                <td>@file.Name</td>
-                <td>@file.SizeString</td>
-                <td>@Html.ActionLink("Download","Download", new { Id = file.Id }) |
-                 @Html.ActionLink("Delete", "Delete", new { Id = file.Id })</td>
-            </tr>
-        }
+      @foreach (UserFileIndexViewModel file in Model.Files)
+      {
+        <tr>
+          <td>@file.Name</td>
+          <td>@file.SizeString</td>
+          <td>
+            @Html.ActionLink("Download", "Download", new { Id = file.Id }) |
+          @Html.ActionLink("Delete", "Delete", new { Id = file.Id })
+        </td>
+      </tr>
+    }
     </tbody>
-</table>
+  </table>
+  </div>

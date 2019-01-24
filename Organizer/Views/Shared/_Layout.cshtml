@@ -17,19 +17,21 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Organiser", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div style="font-size:xx-large; font-family:'Viner Hand ITC'" >
+                  @Html.ActionLink("Organiser", "Index", "Home", new { area = "" }, new {  })
+                </div>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("TODOs", "Index", "TODOItems")</li>
-                    <li>@Html.ActionLink("Notes", "Index", "Note")</li>
-                    <li>@Html.ActionLink("Events", "Index", "UserEvents")</li>
-                    <li>@Html.ActionLink("Observed Users Notes", "ObservedUsersNotes", "Note")</li>
-                    <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
-                    <li>@Html.ActionLink("Users", "Users", "User")</li>
-                    <li>@Html.ActionLink("Files", "Index", "Files")</li>
-                </ul>
+            <div class="navbar-collapse collapse" style="font-family:'Comic Sans MS'">
+              <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("TODOs", "Index", "TODOItems")</li>
+                <li>@Html.ActionLink("Notes", "Index", "Note")</li>
+                <li>@Html.ActionLink("Events", "Index", "UserEvents")</li>
+                <li>@Html.ActionLink("Observed Users Notes", "ObservedUsersNotes", "Note")</li>
+                <li>@Html.ActionLink("Groups", "Index", "Groups")</li>
+                <li>@Html.ActionLink("Users", "Users", "User")</li>
+                <li>@Html.ActionLink("Files", "Index", "Files")</li>
+              </ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
