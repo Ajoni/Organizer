@@ -61,6 +61,11 @@ namespace Organizer.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (userEvent.EndDate < userEvent.StartDate)
+                {
+                    ModelState.AddModelError(string.Empty, "End date can't be before start date.");
+                    return View(userEvent);
+                }
                 var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
                 ApplicationUser user = userManager.FindById(User.Identity.GetUserId());
                 db.UserEvents.Add(userEvent);
@@ -96,6 +101,11 @@ namespace Organizer.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (userEvent.EndDate < userEvent.StartDate)
+                {
+                    ModelState.AddModelError(string.Empty, "End date can't be before start date.");
+                    return View(userEvent);
+                }
                 db.Entry(userEvent).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

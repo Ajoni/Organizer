@@ -204,7 +204,9 @@ namespace Organizer.Controllers
 
         public ActionResult Find()
         {
-            return View(new UsersFindViewModel());
+            var vm = new UsersFindViewModel();
+            vm.Users = db.Users.ToList();
+            return View(vm);
         }
 
         [HttpPost]

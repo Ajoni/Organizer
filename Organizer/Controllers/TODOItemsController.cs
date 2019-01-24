@@ -51,6 +51,11 @@ namespace Organizer.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (tODOItem.EndDate < tODOItem.StartDate)
+                {
+                    ModelState.AddModelError(string.Empty, "End date can't be before start date.");
+                    return View(tODOItem);
+                }
                 var userId = User.Identity.GetUserId();
                 tODOItem.UserId = userId;
                 db.TODOItems.Add(tODOItem);
@@ -85,6 +90,11 @@ namespace Organizer.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (tODOItem.EndDate < tODOItem.StartDate)
+                {
+                    ModelState.AddModelError(string.Empty, "End date can't be before start date.");
+                    return View(tODOItem);
+                }
                 db.Entry(tODOItem).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

@@ -19,7 +19,7 @@ namespace Organizer.Controllers
         {
             var userId = User.Identity.GetUserId();
             var notes = db.Notes.Include(n => n.User).Where(x => x.UserId == userId).ToList();
-            var tODOItems = db.TODOItems.Include(t => t.User).ToList();
+            var tODOItems = db.TODOItems.Include(t => t.User).Where(x => x.UserId == userId).ToList();
             var userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
             var user = userManager.FindById(User.Identity.GetUserId());
             var events = user.Events.Where(e => e.EndDate > DateTime.Now).ToList();

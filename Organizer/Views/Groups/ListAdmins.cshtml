@@ -20,8 +20,8 @@
                 @Html.DisplayFor(modelItem => item.UserName)
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                @Html.ActionLink("Observe", "Observe", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", "User", new { id = item.Id }, null) |
+                @Html.ActionLink("Observe", "Observe", "User", new { id = item.Id }, null)
             </td>
         </tr>
     }

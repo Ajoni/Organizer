@@ -288,7 +288,9 @@ namespace Organizer.Controllers
 
         public ActionResult Search()
         {
-            return View(new GroupsSearchViewModel());
+            var vm = new GroupsSearchViewModel();
+            vm.Groups = db.Groups.ToList();
+            return View(vm);
         }
 
         [HttpPost]
